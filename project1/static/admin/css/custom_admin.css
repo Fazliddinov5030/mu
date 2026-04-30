@@ -1,0 +1,88 @@
+/* Custom Kun.uz Django admin theme */
+:root {
+    color-scheme: dark;
+    --admin-bg: #090a1f;
+    --admin-sidebar: rgba(15, 23, 42, 0.95);
+    --admin-panel: rgba(20, 25, 60, 0.95);
+    --admin-border: rgba(139, 92, 246, 0.25);
+    --admin-text: #f8fafc;
+    --admin-accent: #8b5cf6;
+    --admin-accent-strong: #22d3ee;
+}
+
+body {
+    background: radial-gradient(circle at top left, #6d28d9 0%, #0f172a 45%, #020617 100%);
+    color: var(--admin-text);
+}
+
+#header, #branding, #user-tools, #breadcrumbs, #content-main, #content h1, #content h2, .module caption {
+    color: #e0e7ff;
+}
+
+#header, #footer, #container, .module, .module table, .dashboard-module {
+    background: rgba(8, 10, 30, 0.95);
+    border-color: var(--admin-border);
+}
+
+#header {
+    background: rgba(14, 23, 55, 0.95);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+#header #branding a, #user-tools a, #breadcrumbs a, .model-name, .button, .deletelink, .submit-row a {
+    color: #c4b5fd;
+}
+
+#header #branding a:hover, #user-tools a:hover, #breadcrumbs a:hover, .button:hover, .deletelink:hover, .submit-row a:hover {
+    color: var(--admin-accent-strong);
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 20px 70px rgba(99, 102, 241, 0.25);
+}
+
+.dashboard-module, .module, .module caption, .change-form, .preferences {
+    border-radius: 1.25rem;
+}
+
+fieldset.module, .module caption, .form-row {
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+input, select, textarea, .button, .submit-row input, .submit-row button {
+    background: rgba(15, 23, 42, 0.85);
+    color: var(--admin-text);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--admin-accent-strong);
+    box-shadow: 0 0 0 0.2rem rgba(34, 211, 238, 0.18);
+}
+
+.button, .submit-row input, .submit-row button {
+    background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.button:hover, .submit-row input:hover, .submit-row button:hover {
+    background: linear-gradient(135deg, #22d3ee 0%, #8b5cf6 100%);
+}
+
+table, .sortable, .results {
+    border-color: rgba(148, 163, 184, 0.15);
+}
+
+th, td {
+    border-color: rgba(148, 163, 184, 0.08);
+}

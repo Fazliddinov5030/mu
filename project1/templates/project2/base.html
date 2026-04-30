@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kun.uz - Premium Yangiliklar{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            color-scheme: dark;
+            font-family: 'Inter', sans-serif;
+            --bg: #060713;
+            --surface: rgba(15, 23, 42, 0.92);
+            --surface-soft: rgba(25, 30, 60, 0.88);
+            --border: rgba(148, 163, 184, 0.15);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #7c3aed;
+            --accent-soft: #22d3ee;
+            --highlight: #fb7185;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            margin: 0;
+            background: radial-gradient(circle at top left, rgba(124, 58, 237, 0.16), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.14), transparent 26%),
+                        linear-gradient(180deg, #060713 0%, #03050e 100%);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: min(1120px, 100% - 2rem);
+            margin: 0 auto;
+        }
+
+        .surface {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(34, 211, 238, 0.85));
+        }
+
+        .section-title {
+            color: #f8fafc;
+            letter-spacing: -0.03em;
+        }
+
+        .link-accent {
+            color: #7c3aed;
+        }
+
+        .link-accent:hover {
+            color: #22d3ee;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(124, 58, 237, 0.22);
+        }
+
+        .thin-border {
+            border-color: rgba(148, 163, 184, 0.12);
+        }
+
+        .footer-note {
+            color: #94a3b8;
+        }
+
+        .menu-button {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .menu-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-[#05070f]/90 backdrop-blur-xl">
+        <div class="container flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
+            <a href="{% url 'project2:home' %}" class="flex items-center gap-3 text-white no-underline">
+                <span class="inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400 shadow-lg shadow-fuchsia-500/15">
+                    <i class="fas fa-newspaper text-xl"></i>
+                </span>
+                <div>
+                    <p class="text-sm uppercase tracking-[0.28em] text-slate-400 mb-1">Kun.uz</p>
+                    <h1 class="text-2xl font-semibold">Elevated News Portal</h1>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-4 text-sm text-slate-300">
+                <a href="{% url 'project2:home' %}" class="menu-button rounded-full px-4 py-2 transition hover:scale-105 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-cyan-400/20">Uy</a>
+                <a href="#" class="menu-button rounded-full px-4 py-2 transition hover:scale-105 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-cyan-400/20">Haqida</a>
+                <a href="#" class="menu-button rounded-full px-4 py-2 transition hover:scale-105 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-cyan-400/20">Aloqa</a>
+                <a href="#" class="menu-button rounded-full px-4 py-2 transition hover:scale-105 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-cyan-400/20">Obuna bo'ling</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-10 fade-in">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-white/10 bg-[#05070f]/90 py-10">
+        <div class="container grid gap-10 lg:grid-cols-3">
+            <div class="space-y-4">
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Kun.uz</p>
+                <h2 class="text-2xl font-semibold text-white">Zamonaviy o'quvchilar uchun premium yangiliklar.</h2>
+                <p class="text-slate-400 max-w-xl">Aniqlik, tezlik va ishonch uchun yaratilgan portal. Eng so'nggi hikoyalarni aniqlik va sifat bilan kashf eting.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 lg:col-span-2">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-4">Koshf eting</p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">So'nggi hikoyalar</a></li>
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">Kategoriyalar</a></li>
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">Trenddagi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-4">Aloqa</p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">Yangiliklar ro'yxati</a></li>
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">Qo'llab-quvvatlash</a></li>
+                        <li><a href="#" class="link-accent transition hover:text-cyan-300">Maxfiylik</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-slate-500">&copy; 2026 Kun.uz — Premium yangiliklar uchun yaratilgan.</div>
+    </footer>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

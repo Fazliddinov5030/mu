@@ -1,0 +1,111 @@
+{% extends "project2/base.html" %}
+
+{% block title %}Uy - Kun.uz Yangiliklar Portali{% endblock %}
+
+{% block content %}
+    {% if featured_posts %}
+    <section class="mb-12 rounded-[2rem] overflow-hidden surface shadow-[0_50px_120px_rgba(124,58,237,0.18)] slide-up">
+        <div class="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+            <div class="relative min-h-[420px]">
+                {% if featured_posts.0.featured_image %}
+                <img src="{{ featured_posts.0.featured_image.url }}" alt="Featured story" class="absolute inset-0 h-full w-full object-cover brightness-75">
+                {% else %}
+                <div class="absolute inset-0 bg-gradient-to-br from-violet-500 to-cyan-400"></div>
+                {% endif %}
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                <div class="relative z-10 flex h-full flex-col justify-end p-10 text-white">
+                    <span class="mb-4 inline-flex rounded-full bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-slate-200">Tanlangan</span>
+                    <h2 class="max-w-2xl text-4xl font-semibold leading-tight">{{ featured_posts.0.title }}</h2>
+                    <p class="mt-6 max-w-xl text-sm text-slate-300">{{ featured_posts.0.body|truncatewords:30 }}</p>
+                    <div class="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+                        <span class="rounded-full bg-white/10 px-4 py-2">{{ featured_posts.0.category.name }}</span>
+                        <span>{{ featured_posts.0.publication_date|date:"F j, Y" }}</span>
+                        <a href="{% url 'project2:post_detail' featured_posts.0.slug %}" class="rounded-full bg-violet-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-400 hover:text-slate-950 hover:scale-105">Hikoyani o'qing</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid gap-6 p-6 lg:p-10">
+                {% for post in featured_posts|slice:"1:4" %}
+                <a href="{% url 'project2:post_detail' post.slug %}" class="group relative overflow-hidden rounded-[1.75rem] surface border border-white/10 p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_24px_80px_rgba(34,211,238,0.14)]">
+                    <span class="inline-flex rounded-full bg-violet-500/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-violet-200">{{ post.category.name }}</span>
+                    <h3 class="mt-4 text-xl font-semibold text-white transition group-hover:text-cyan-300">{{ post.title }}</h3>
+                    <p class="mt-3 text-sm leading-6 text-slate-300 line-clamp-3">{{ post.body|truncatewords:20 }}</p>
+                    <div class="mt-6 flex items-center justify-between text-sm text-slate-400">
+                        <span>{{ post.publication_date|date:"M d, Y" }}</span>
+                        <span class="font-semibold text-cyan-300">O'qing</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="mb-12 slide-up">
+        <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-cyan-300/80">So'nggi yangiliklar</p>
+                <h2 class="mt-3 text-3xl font-semibold text-white">Bugungi eng muhim hikoyalar.</h2>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                <a href="{% url 'project2:home' %}" class="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200 transition hover:border-cyan-300/40 hover:bg-cyan-300/10 hover:scale-105">Barcha yangiliklar</a>
+                {% for category in categories|slice:":2" %}
+                <a href="?category={{ category.slug }}" class="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200 transition hover:border-violet-300/40 hover:bg-violet-300/10">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[1.6fr_0.9fr]">
+            <div class="grid gap-6">
+                {% if posts %}
+                <div class="grid gap-6 lg:grid-cols-2">
+                    {% for post in posts|slice:":4" %}
+                    <article class="surface rounded-[2rem] border border-white/10 p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(124,58,237,0.18)]">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center justify-between">
+                                <span class="rounded-full bg-cyan-400/15 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-200">{{ post.category.name }}</span>
+                                <span class="text-xs text-slate-400">{{ post.publication_date|date:"M d, Y" }}</span>
+                            </div>
+                            {% if post.featured_image %}
+                            <div class="overflow-hidden rounded-[1.5rem] bg-slate-950">
+                                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="h-56 w-full object-cover transition duration-300 group-hover:scale-105">
+                            </div>
+                            {% endif %}
+                            <div>
+                                <a href="{% url 'project2:post_detail' post.slug %}" class="text-xl font-semibold text-white transition hover:text-cyan-300">{{ post.title }}</a>
+                                <p class="mt-4 text-sm leading-6 text-slate-400">{{ post.body|truncatewords:24 }}</p>
+                            </div>
+                            <a href="{% url 'project2:post_detail' post.slug %}" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition hover:text-white hover:translate-x-1">Maqolani o'qing <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <aside class="grid gap-6">
+                <div class="surface rounded-[2rem] border border-white/10 p-6">
+                    <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Trenddagi</p>
+                    <h3 class="mt-4 text-2xl font-semibold text-white">Soatdagi eng yaxshi tanlovlar</h3>
+                    <div class="mt-6 space-y-4 text-slate-300">
+                        {% for post in posts|slice:":3" %}
+                        <a href="{% url 'project2:post_detail' post.slug %}" class="block rounded-3xl border border-white/10 p-4 transition hover:border-cyan-300/40 hover:bg-cyan-300/8">
+                            <p class="font-semibold text-white">{{ post.title }}</p>
+                            <span class="text-xs text-slate-500">{{ post.publication_date|date:"M d, Y" }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="surface rounded-[2rem] border border-white/10 p-6 text-slate-300">
+                    <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Xabardor bo'ling</p>
+                    <h3 class="mt-4 text-2xl font-semibold text-white">Bizning yangiliklar ro'yxatiga qo'shiling</h3>
+                    <p class="mt-4 text-sm leading-6 text-slate-400">Har tongda eng yaxshi hikoyalarni pochta qutingizga oling, zamonaviy o'quvchilar uchun moslashtirilgan.</p>
+                    <form class="mt-6 space-y-4">
+                        <input type="email" placeholder="Sizning elektron pochta manzilingiz" class="w-full rounded-3xl border border-white/10 bg-[#02050e] px-5 py-3 text-slate-100 outline-none transition focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20 hover:border-cyan-300/50">
+                        <button type="submit" class="w-full rounded-3xl bg-gradient-to-r from-violet-500 to-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:opacity-95 hover:scale-105">Obuna bo'ling</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </section>
+{% endblock %}
