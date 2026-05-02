@@ -2,14 +2,31 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
 
 def main():
     """Run administrative tasks."""
-    root = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(root)
-    sys.path.insert(0, project_root)
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project1.settings')
+    # Get the absolute path of this script
+    base_dir = Path(__file__).resolve().parent
+    sys.path.insert(0, str(base_dir))
+    
+    # Set default settings module
+    settings_module = os.environ.get(
+        'DJANGO_SETTINGS_MODULE',
+        'config.settings.local'  # Default to local development
+    )
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+    
+    # Load environment variables from .env file
+    try:
+        from dotenv import load_dotenv
+        env_file = base_dir / '.env'
+        if env_file.exists():
+            load_dotenv(env_file)
+    except ImportError:
+        pass  # python-dotenv not installed, continue anyway
+    
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

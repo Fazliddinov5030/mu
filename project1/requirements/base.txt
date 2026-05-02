@@ -1,0 +1,13 @@
+# Core Django requirements
+Django==6.0.2
+django-jazzmin==3.0.4
+Pillow==10.1.0
+python-dotenv==1.0.0
+
+# Database
+psycopg2-binary==2.9.9
+
+# API and utilities  
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-filter==24.1.0
