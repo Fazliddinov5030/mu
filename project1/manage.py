@@ -3,7 +3,6 @@
 import os
 import sys
 from pathlib import Path
-from dotenv import load_dotenv 
 
 
 def main():
@@ -11,13 +10,6 @@ def main():
     # Get the absolute path of this script
     base_dir = Path(__file__).resolve().parent
     sys.path.insert(0, str(base_dir))
-    
-    # Set default settings module
-    settings_module = os.environ.get(
-        'DJANGO_SETTINGS_MODULE',
-        'config.settings.local'  # Default to local development
-    )
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     
     # Load environment variables from .env file
     try:
@@ -27,6 +19,13 @@ def main():
             load_dotenv(env_file)
     except ImportError:
         pass  # python-dotenv not installed, continue anyway
+    
+    # Set default settings module
+    settings_module = os.environ.get(
+        'DJANGO_SETTINGS_MODULE',
+        'config.settings.local'  # Default to local development
+    )
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     
     try:
         from django.core.management import execute_from_command_line
